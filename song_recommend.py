@@ -4,15 +4,20 @@ import pickle
 from difflib import get_close_matches
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+import os
+from dotenv import load_dotenv
 
-CLIENT_ID = "fc02c949f3b34f09b7874b6ee3d8aad7"
-CLIENT_SECRET = "db76050e5529419bb9bfe06d3bb3bb41"
+load_dotenv()
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
-    client_id=CLIENT_ID,
-    client_secret=CLIENT_SECRET
+    client_id=os.getenv("SPOTIFY_CLIENT_ID"),
+    client_secret=os.getenv("SPOTIFY_CLIENT_SECRET")
 ))
 
 with open('track_df.pkl','rb') as f:
