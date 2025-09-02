@@ -5,9 +5,6 @@ from difflib import get_close_matches
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import os
@@ -16,8 +13,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
-    client_id=os.getenv("SPOTIFY_CLIENT_ID"),
-    client_secret=os.getenv("SPOTIFY_CLIENT_SECRET")
+    client_id=st.secrets("SPOTIFY_CLIENT_ID"),
+    client_secret=st.secrets("SPOTIFY_CLIENT_SECRET")
 ))
 
 with open('track_df.pkl','rb') as f:
@@ -85,4 +82,6 @@ if st.button("Recommend"):
                     cover_url = get_album_cover(row['track_name'], row['artists'])
                     if cover_url:
                         col.image(cover_url, width=150)
-                    col.markdown(f"**{row['track_name']}**  \nby {row['artists']}  \nGenre: {row['track_genre']}  \nPopularity: {row['popularity']}")
+                    col.markdown(
+                        f"**{row['track_name']}**  \nby {row['artists']}  \nGenre: {row['track_genre']}  \nPopularity: {row['popularity']}"
+                    )
