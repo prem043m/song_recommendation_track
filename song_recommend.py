@@ -11,10 +11,12 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+client_id = st.secrets["SPOTIFY_CLIENT_ID"]
+client_secret = st.secrets["SPOTIFY_CLIENT_SECRET"]
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
-    client_id=st.secrets("SPOTIFY_CLIENT_ID"),
-    client_secret=st.secrets("SPOTIFY_CLIENT_SECRET")
+    client_id=client_id,
+    client_secret=client_secret
 ))
 
 with open('track_df.pkl','rb') as f:
